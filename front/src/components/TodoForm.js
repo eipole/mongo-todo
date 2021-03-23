@@ -1,11 +1,19 @@
-import { Button, TextField } from "@material-ui/core"
+import { Button, makeStyles, TextField, Typography } from "@material-ui/core"
 import React, { useRef, useState } from "react"
 import { postData } from "./functions"
+import { isTextValid } from "../utils/validate"
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: theme.spacing(2)
+  }
+}))
 
 function TodoForm({ setAllTodos }) {
+  const classes = useStyles()
   const [inputValue, setInputValue] = useState("")
   const inputRef = useRef()
-
+  const validInput = isTextValid(inputValue)
   async function addTodoState(value) {
     const uustudu = await postData(value)
     setAllTodos((prev) => [...prev, uustudu])
@@ -18,7 +26,16 @@ function TodoForm({ setAllTodos }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={classes.container} onSubmit={handleSubmit}>
+      <Typography
+        color="primary"
+        variant="h4"
+        component="h2"
+        gutterBottom
+        align="center"
+      >
+        Hvad kan man gjæra?
+      </Typography>
       <TextField
         autoFocus
         fullWidth
@@ -28,8 +45,10 @@ function TodoForm({ setAllTodos }) {
         onChange={(event) => setInputValue(event.target.value)}
         ref={inputRef}
       />
-
-      <button>Submit</button>
+      <Button disabled={!validInput} type="submit" color="primary">
+        Submit
+      </Button>
+      {/* {validInput && <button>Submit</button>} */}
     </form>
   )
 }

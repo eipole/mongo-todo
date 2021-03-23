@@ -10,7 +10,7 @@ import { deleteTodo, toggleTodo } from "./functions"
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    margin: theme.spacing(4)
+    margin: theme.spacing(2)
   },
   songInfoContainer: {
     display: "flex",
@@ -21,14 +21,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between"
   },
-  thumbnail: {
-    objectFit: "cover",
-    width: 140,
-    height: 140
+  carditem: {
+    background: theme.palette.primary.light
   },
   strike: {
     textDecoration: "line-through",
-    color: theme.palette.secondary.main
+    color: theme.palette.secondary.light
   }
 }))
 
@@ -46,18 +44,20 @@ async function handleToggle(id, completed, allTodos, setAllTodos) {
 }
 
 function TodoItem({ name, completed, id, date, allTodos, setAllTodos }) {
-  console.log(completed)
   const classes = useStyles()
   return (
-    <Card>
-      <CardContent>
+    <Card className={classes.container}>
+      <CardContent className={classes.carditem}>
         <span
           onClick={() => handleToggle(id, completed, allTodos, setAllTodos)}
         >
           <h2 className={`${completed && classes.strike}`}>{name}</h2>
         </span>
         <p>Added on {date} </p>
-        <Button onClick={() => handleDelete(id, allTodos, setAllTodos)}>
+        <Button
+          color="secondary"
+          onClick={() => handleDelete(id, allTodos, setAllTodos)}
+        >
           Delete
         </Button>
       </CardContent>
