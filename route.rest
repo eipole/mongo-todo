@@ -1,0 +1,29 @@
+GET http://localhost:3000/todos
+
+
+###
+
+POST http://localhost:3000/todos
+Content-Type: application/json
+
+{
+  "name":"siuke tydy"
+}
+
+######
+
+@_id = 6037cebeab21420c52666125
+PATCH http://localhost:5000/todos/{{_id}}
+Content-Type: application/json
+
+{
+  "completed": "false"
+}
+
+
+#############
+@_id = 6036b8c984a7c32841caee37
+DELETE http://localhost:3000/todos/{{_id}}
+
+
+################
